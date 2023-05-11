@@ -1,0 +1,59 @@
+<div class="overlay">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="con">
+      <header class="head-form">
+        <h2>Sign Up</h2>
+        <p>Please fill in this form to create an account.</p>
+      </header>
+      <br>
+      <table>
+        <tr>
+          <td><label for="username">Username: </label></td>
+          <td>
+            <input class="form-input" type="text" formControlName="username" placeholder="Enter Username *" required minlength="3" maxlength="20">
+          </td>
+        </tr>
+        <tr *ngIf="form.get('username')?.invalid && (form.get('username')?.dirty || form.get('username')?.touched)">
+          <td></td>
+          <td class="error">Username is required. At least 3 characters <br>and at most 20 characters</td>
+        </tr>
+        <tr>
+          <td><label for="email">Email: </label></td>
+          <td>
+            <input class="form-input" type="email" formControlName="email" placeholder="Enter Email *" required>
+          </td>
+        </tr>
+        <tr *ngIf="form.get('email')?.invalid && (form.get('email')?.dirty || form.get('email')?.touched)">
+          <td></td>
+          <td class="error">Email is required.<br>Must be a valid email address </td>
+        </tr>
+        <tr>
+          <td><label for="password">Password: </label></td>
+          <td>
+            <input class="form-input" type="password" formControlName="password" placeholder="Enter Password *" required minlength="6">
+          </td>
+        </tr>
+        <tr *ngIf="form.get('password')?.invalid && (form.get('password')?.dirty || form.get('password')?.touched)">
+          <td></td>
+          <td class="error">Password is required and must be <br>at least 6 characters. </td>
+        </tr>
+        <br>
+      </table>
+      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+      <div class="other">
+        <button class="btn submits frgt-pass" type="button" routerLink="/login">Cancel</button>
+        <button class="btn submits sign-up" type="submit" [disabled]="!form.valid">Sign Up
+          <i class="bi bi-person-fill-add" aria-hidden="true"></i>
+        </button>
+        <br>
+      </div>
+
+      <div class="alert alert-warning" *ngIf="isSignUpFailed">
+        Signup failed! <br />{{ errorMessage }}
+      </div>
+      <div class="alert alert-success" *ngIf="isSuccessful">
+        Registration successful! Registration confirmation email sent to your email. Redirecting to login...
+      </div>
+    </div>
+  </form>
+</div>
